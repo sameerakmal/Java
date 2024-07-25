@@ -1,4 +1,3 @@
-
 class Node{
     int data;
     Node next;
@@ -7,7 +6,7 @@ class Node{
     Node(int data1, Node next1, Node back1){
         this.data = data1;
         this.next = next1;
-        this.back = back1; 
+        this.back = back1;
     }
     Node(int data1){
         this.data = data1;
@@ -15,18 +14,18 @@ class Node{
         this.back = null;
     }
 }
-class DeleteDLL{
-
+public class DLLprac {
     private static Node convertArr2DLL(int[] arr){
         Node head = new Node(arr[0]);
         Node prev = head;
         for (int i = 1; i < arr.length; i++) {
             Node temp = new Node(arr[i],null,prev);
             prev.next = temp;
-            prev = temp;
+            prev = prev.next;
         }
-        return head;
+        return head;   
     }
+
     private static void printDLL(Node head){
         Node temp = head;
         while (temp != null) {
@@ -37,21 +36,20 @@ class DeleteDLL{
     }
 
     private static Node deleteAtHead(Node head){
-        if(head == null || head.next == null){
+        Node prev = head;
+        if (head == null || head.next == null) {
             return null;
         }
-        Node prev = head;
         head = head.next;
-
         head.back = null;
         prev.next = null;
-
         return head;
     }
 
     private static Node deleteAtTail(Node head){
-        if(head == null || head.next == null) return null;
-
+        if (head == null || head.next == null) {
+            return null;
+        }
         Node tail = head;
         while (tail.next != null) {
             tail = tail.next;
@@ -65,14 +63,13 @@ class DeleteDLL{
     private static Node deleteAtK(Node head, int k){
         int cnt = 0;
         Node temp = head;
-        while(temp != null){
+        while (temp != null) {
             cnt++;
             if(cnt == k) break;
             temp = temp.next;
         }
         Node prev = temp.back;
         Node front = temp.next;
-
         if(prev == null && front == null){
             return null;
         }
@@ -90,29 +87,10 @@ class DeleteDLL{
 
         return head;
     }
-
-    private static void deleteNode(Node head){
-        Node temp = head;
-        Node prev = temp.back; 
-        Node front = temp.next;
-
-        if(front == null){
-            prev.next = null;
-            temp.back = null;
-            return;
-        } 
-        prev.next = front;
-        front.back = prev;
-
-        temp.next = temp.back = null;
-        
-    }
-
     public static void main(String[] args) {
         int[] arr = {1,2,3,4,5};
         Node head = convertArr2DLL(arr);
-        deleteNode(head.next);
-
+        head = deleteAtK(head, 3);
         printDLL(head);
     }
 }
