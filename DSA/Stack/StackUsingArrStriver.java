@@ -19,7 +19,7 @@ class Stack {
     }
 
 }
-public class StackUsingArr {
+public class StackUsingArrStriver {
     public static void main(String[] args) {
         Stack s = new Stack();
         s.push(5);
