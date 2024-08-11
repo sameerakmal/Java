@@ -1,69 +1,84 @@
 class Queue{
+    private int f,r,size;
     private int[] arr;
-    private int start, end, currsize, maxsize;
+
     public Queue(){
-        arr = new int[16];
-        start = -1;
-        end = -1;
-        currsize = 0;
+        f = -1;
+        r = -1;
+        arr = new int[5];
     }
 
-    public Queue(int maxsize){
-        this.maxsize = maxsize;
-        arr = new int[maxsize];
-        start = -1;
-        end = -1;
-        currsize = 0;
-    }
-
-    public void push(int newElement){
-        if(currsize == maxsize){
+    public void add(int x){
+        if(r == arr.length-1){
             System.out.println("Queue is full");
-            System.exit(1);
+            return;
         }
-        if(end == -1){
-            start = 0;
-            end = 0;
+        else if(f == -1 && r == -1){
+            f = 0;
+            r = 0;
+            arr[r] = x;
         }
         else{
-            end = (end + 1) % newElement;
+            arr[++r] = x;
         }
-        arr[end] = newElement;
-        System.out.println("The element pushed is " + newElement);
-        currsize++;
+        size++;
     }
 
-    public int pop(){
-        if(start == -1){
-            System.out.println("Queue Empty");
-            System.exit(1);
-        }
-        int popped = arr[start];
-        if(currsize == 1){
-            start = -1;
-            end = -1;
+    public int remove(){
+        if(size == 0){
+            System.out.println("Queue is empty");
+            return -1;
         }
         else{
-            start = (start + 1) % maxsize;
+            int x = arr[f++];
+            size--;
+            return x;
+        } 
+    }
+
+    public int peek(){
+        if(size == 0){
+            System.out.println("Queue is empty");
+            return -1;
         }
-        currsize--;
-        return popped;
+        return arr[f];
+    }
+
+    public boolean isEmpty(){
+        if(size == 0) return true;
+        else return false;
+    }
+
+    public void display(){
+        if(size == 0){
+            System.out.println("Queue is empty");
+            return;
+        }
+        for(int i = f;i <= r;i++){
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public int size(){
+        return size;
     }
 
 }
-public class QueueUsingArr {
+public class QueueUsingArr{
     public static void main(String[] args) {
-        Queue q = new Queue(6);
-        q.push(5);
-        q.push(9);
-        q.push(8);
-        q.push(6);
-        q.push(4);
-        q.push(2);
-        System.out.println(q.pop());
-        q.push(1);
-
-
+        Queue q = new Queue();
+        q.add(10);
+        q.add(20);
+        q.add(30);
+        q.add(40);
+        q.add(50);
+        System.out.println(q.remove());
+        System.out.println(q.peek());
+        q.display();
+        System.out.println(q.size());
+        System.out.println(q.isEmpty());
+        
 
     }
 }
