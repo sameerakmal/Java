@@ -19,7 +19,6 @@ public class ConvertArr2LL{
             Node temp = new Node(arr[i]);
             mover.next = temp;
             mover = temp;
-
         }
         return head;
     }
